@@ -1,0 +1,46 @@
+Steps:
+1. Create an E2-Medium Instance:
+gcloud compute instances create INSTANCE_NAME \
+ --machine-type=e2-medium \
+ --image-family=debian-11 \
+ --image-project=debian-cloud \
+ --boot-disk-size=10GB \
+ --zone=asia-south2-a \
+ --tags=http-server \
+
+
+
+2. sudo apt-get update
+
+
+3. sudo apt-get install apache2
+
+
+
+4. sudo nano /etc/apache2/sites-available/000-default.conf
+
+
+
+5. Add the path of your webApp, your ip. It should be looking like this 👇 
+<VirtualHost your-IP:80>
+ ServerAdmin webmaster@localhost
+ DocumentRoot /home/user/WebApp-name
+
+ ErrorLog ${APACHE_LOG_DIR}/error.log
+ CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+ <Directory /home/user/WebApp-name>
+ AllowOverride All
+ </Directory>
+</VirtualHost>
+
+
+6. sudo service apache2 restart
+
+
+7. Open a new tab and paste this into the URL tab: your-ip:80
+
+
+
+Note ⚠ : Don't forget to add your WebApp folder in the VM. I have done this using Cloud Shell. you can use this or clone your file using the git clone command.
+
